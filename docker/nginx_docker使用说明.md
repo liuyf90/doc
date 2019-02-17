@@ -119,5 +119,60 @@ Nginx的最大作用，就是搭建一个Web Server.有了容器，只要一行�
 > *		-keyout：新生成的私钥文件为当前目录下的example.key。
 > *		-out：新生成的证书文件为当前目录下的example.crt。
 
+执行后，命令行会跳出一堆问题要你回答，比如你在哪个国家、你的email等等。
+
+
+![MacDown Screenshot](https://github.com/liuyf90/doc/blob/master/pic/nginx_openssl.png?raw=true)
+
+其中最重要的一个问题是Common Name,正常情况下应该填入一个域名，这里可以填127.0.0.1.
+
+回答完问题，当前目录下应该会多出两个文件：example.crt和example.key。conf目录下新建一个子目录certs,把这两个文件放入这个目录。
+
+> 		$ mkdir conf/certs
+> 		$ mv example.crt example.key conf/certs
+
+# 六. HTTP配置
+
+有了私钥和证书，就可以打开nginx的HTTP了。
+
+首先，打开conf/conf.d/default.conf文件，在结尾添加下面的配置。
+
+		server {
+		    listen 443 ssl http2;
+		    server_name  localhost;
+		
+		    ssl                      on;
+		    ssl_certificate          /etc/nginx/certs/example.crt;
+		    ssl_certificate_key      /etc/nginx/certs/example.key;
+		
+		    ssl_session_timeout  5m;
+		
+		    ssl_ciphers HIGH:!aNULL:!MD5;
+		    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+		    ssl_prefer_server_ciphers   on;
+		
+		    location / {
+		        root   /usr/share/nginx/html;
+		        index  index.html index.htm;
+		    }
+	}
+
+然后，启动一个新的 Nginx 容器。
+
+		$ docker container run \
+		  --rm \
+		  --name mynginx \
+		  --volume "$PWD/html":/usr/share/nginx/html \
+		  --volume "$PWD/conf":/etc/nginx \
+		  -p 9090:80 \
+		  -p 9091:443 \
+		  -d \
+		  nginx
+		 
+上面命令中，不仅映射了容器的80端口，还映射了443端口，这是 HTTPS 的专用端口。
+
+打开浏览器，访问 https://127.0.0.2:8081/ 。因为使用了自签名证书，浏览器会提示不安全。不要去管它，选择继续访问，应该就可以看到 Hello World 了。
+
+至此，Nginx 容器的 HTTPS 支持就做好了。有了这个容器，下一篇文章，我就来试验 HTTP/2 的 server push 功能。
 
 
