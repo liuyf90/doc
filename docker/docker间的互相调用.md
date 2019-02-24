@@ -18,17 +18,19 @@
 >	3. 将record-the-points-0.0.1-SNAPSHOT.jar 文件拷贝到mkdockerforsocre。目录下
 目录下的文件如下：
 
->     			Dockerfile				record-the-points-0.0.1-SNAPSHOT.jar
+>     		Dockerfile				record-the-points-0.0.1-SNAPSHOT.jar
 
 
 > 4. docker image build -t score:1.0 .   #构建镜像文件
 >5. 查看my-mysql容器的ip地址
 >
->			 	docker  inspect my-mysql
+>			 sdocker  inspect my-mysql
 >
 
 ## 启动并建立容器
 >		
->			docker container run -d -p 18530:18530 socre:1.0  java -jar record-the-points-0.0.1-SNAPSHOT.jar --spring.datasource.url=jdbc:mysql://172.17.0.1:3306/score?useSSL=false&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&autoReconnect=true&failOverReadOnly=false 
+>		docker container run -d -p 18530:18530 socre:1.0  java -jar record-the-
+>		points-0.0.1-SNAPSHOT.jar  spring.datasource.url=jdbc:mysql://172.17.0.1
+>		:3306/score	
 
 >**http://127.0.0.1:18530  即可访问**
