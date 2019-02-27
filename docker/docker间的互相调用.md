@@ -10,6 +10,7 @@
 
 ## 制作image文件
 1.  $	mkdir mkdockerforsocre  #新建目录
+2. 将 **record-the-points-0.0.1-SNAPSHOT.jar**文件拷贝到 mkdockerforsocre 目录
 2.  $	vi Dockerfile       #创建Dockerfile文件
 			
 	>			FROM insideo/centos7-java8-build \
