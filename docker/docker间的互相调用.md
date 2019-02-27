@@ -43,7 +43,7 @@
 	>**http://127.0.0.1:18530  即可访问**
 
 
-#方法二（通过docker-componse编排）
+# 方法二（通过docker-componse编排）
 1. 新建文件 docker-compose.yml
 
 	> ```
