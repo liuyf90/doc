@@ -14,15 +14,15 @@
 2.  $	vi Dockerfile       #创建Dockerfile文件
 
 	```		
-				FROM insideo/centos7-java8-build \
-				COPY . /app \
-				WORKDIR /app \
-				EXPOSE 18530 
+	FROM insideo/centos7-java8-build \
+	COPY . /app \
+	WORKDIR /app \
+	EXPOSE 18530 
 			
 3. 将record-the-points-0.0.1-SNAPSHOT.jar 文件拷贝到mkdockerforsocre。目录下
 目录下的文件如下：
 
-			Dockerfile    record-the-points-0.0.1-SNAPSHOT.jar
+		Dockerfile    record-the-points-0.0.1-SNAPSHOT.jar
 
 
 4. docker image build -t score:1.0 .   #构建镜像文件
@@ -49,7 +49,7 @@
 1. 新建文件 docker-compose.yml
 
 	```
-	   version: '3'
+	version: '3'
 		  services:
 	       rabbit:
 	       image: rabbitmq:3-managementß
