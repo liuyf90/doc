@@ -4,7 +4,7 @@
 
 1.  在本机新建目录如下
 	
-		mkdir 	/usr/mydocker/mysql-volume/mysql
+		mkdir 	/usr/mydocker/mysql-volume
 	
 
 2.  编写docker-compose.yml
@@ -16,7 +16,7 @@
 		    ports:
 		     - 3307:3306
 		    volumes:
-		     - /usr/mydocker/mysql-volume/mysql  #新建本机卷
+		     - /Users/liuyf/Workspace/develop/mysql-volume/mysql/:/var/lib/mysql
 		    environment:
 		     - MYSQL_ROOT_PASSWORD=123456
 		     - MYSQL_DATABASE=score
@@ -35,19 +35,26 @@
 		    image: nginx
 		    ports:
 		     - 9090:80
-		     
-		     
+		     		     
+
+
 3. 首先运行编排器
 
 		docker-compose up -d
+		
+		
+5. 通过navicat将score库导入数据，确认数据导入
+
+4. 将容器中的数据文件拷贝到卷中
+
+        docker container cp docker-start_mysql_1:/var/lib/mysql .
 		
 4. 查看/usr/mydocker/mysql-volume/mysql 目录下，果然有数据
 
 		[root@localhost mysql]# ls
 		auto.cnf    ca.pem           client-key.pem  ibdata1      ib_logfile1  mysql               private_key.pem  score            server-key.pem
 		ca-key.pem  client-cert.pem  ib_buffer_pool  ib_logfile0  ibtmp1       performance_schema  public_key.pem   server-cert.pem  sys
-		
-5. 通过navicat将score库导入数据，确认数据导入
+
 6. 终止容器
 	
 		docker-compose down
