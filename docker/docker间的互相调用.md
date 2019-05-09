@@ -4,7 +4,7 @@
 
 
 
-## 准备工作
+##  准备工作
 1.	mysql镜像不多说了，网上很多，我的镜像名字是my-mysql.
 2. 将一个springboot项目编译为jar包->**record-the-points-0.0.1-SNAPSHOT.jar**
 
@@ -63,6 +63,7 @@
 	       environment:
 	        - MYSQL_ROOT_PASSWORD=123456
 	        - MYSQL_DATABASE=score
+	       command: --lower_case_table_names=1 #大小写不敏感
 	     score:
 	       image: socre:1.0
 	       links:

@@ -20,6 +20,7 @@
 		    environment:
 		     - MYSQL_ROOT_PASSWORD=123456
 		     - MYSQL_DATABASE=score
+		    command: --lower_case_table_names=1 #大小写不敏感
 		  score:
 		    image: socre:1.0
 		    links:

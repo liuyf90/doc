@@ -1,10 +1,10 @@
-#nginx docker 使用说明
+# nginx docker 使用说明
 ------------------
 摘自<http://www.ruanyifeng.com/blog/2018/02/nginx-docker.html>
 
 > 看了阮一峰的nginx容器教程后，按照自己的macos系统进行了操作，仅有小部分适应自己系统的修改，绝大部分内容摘自**阮一峰的blog**。
 
-##一. HTTP服务
+## 一. HTTP服务
 Nginx的最大作用，就是搭建一个Web Server.有了容器，只要一行命令，服务器就假设好了，完全不用配置。
 >
 >		$ docker container run\
