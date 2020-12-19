@@ -5,7 +5,7 @@
 "|__|_|  / ____|   \_/ |__|__|_|  /__|    \___  >
 "      \/\/                     \/            \/ 
 "
-
+"
 
 
 " ===
@@ -31,9 +31,23 @@ set guifont=Courier_New:h10:cANSI
 set hidden
 "自动编译
 autocmd BufNewFile,BufReadPre *.java nnoremap <leader>cra :w<cr>:!javac *.java<cr>:!java Main<cr>
+" 用于解决切换普通模式慢半拍的问题
+set timeoutlen=1000 ttimeoutlen=0
+" 设置光标样式
+" macos iterm2 style
+"let &t_SI="\<Esc>]50;CursorShape=1\x7"
+"let &t_SR="\<Esc>]50;CursorShape=2\x7"
+"let &t_EI="\<Esc>]50;CursorShape=0\x7"
+"mac os tmux style
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
-
-
+" netrw vim原生的文件管理器
+set nocompatible
+filetype plugin on
+runtime macros/matchit.vim
+packadd! matchit
 
 
 
@@ -43,8 +57,8 @@ autocmd BufNewFile,BufReadPre *.java nnoremap <leader>cra :w<cr>:!javac *.java<c
 " ===
 
 " set leaderKey
-let mapleader=";"
-let g:mapleader=";"
+"let mapleader=";"
+"let g:mapleader=";"
 " 缓冲区导航映射
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -61,6 +75,9 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 " Spelling Check with <leader>sc
 map <leader>sc :set spell!<CR>
+" input %% to fullpath
+cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
+
 
 
 
@@ -96,7 +113,8 @@ set number
 set nrformats=
 set relativenumber
 " 高亮搜索
-set hlsearch
+"set hlsearch
+set incsearch
 "搜索忽略大小写
 set ignorecase
 " 设置折叠方式
@@ -168,6 +186,7 @@ call plug#begin()
     Plug 'vim-scripts/nginx.vim'
     Plug 'tpope/vim-fugitive'
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'ybian/smartim'
@@ -179,11 +198,12 @@ call plug#begin()
     Plug 'gmarik/vundle'
     Plug 'scrooloose/syntastic'
     Plug 'dbeniamine/cheat.sh-vim'
+    Plug 'tpope/vim-surround'
 call plug#end()
 
 
-
-
+" 设置低栏的样式
+let g:airline_theme="badwolf"
 
 
 
@@ -330,7 +350,7 @@ command! -nargs=0 Format :call CocAction('format')
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" Add `:OR` command for organize imports of the current buffer.
+" 非常有用的自动导入 java中的import   Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
